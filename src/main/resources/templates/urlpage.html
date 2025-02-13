@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+          <p>CREATE SHORT URL OF SITE :: </p>
+    <form th:action="@{/api/url/shorturl}" method="post" th:object="${keyvalue}">
+        <div>
+            <label for="key">Key :</label>
+            <input type="text" id="key" name="key" placeholder="Enter key here" />
+        </div>
+        <div>
+            <label for="value">Value :</label>
+            <input type="text" id="value" name="value" placeholder="Enter value here"/>
+        </div>
+        <button type="submit" onclick="renderData()">Submit</button>
+    </form>
+
+<div>
+
+    <label>USER DATA ::</label>
+    <p th:if="${urlShort}" th:text="${urlShort}"></p>
+
+    <label>USER URL DATA ::</label>
+    <p th:if="${userurlData}" th:text="${userurlData}"></p>
+
+    <label>USER CLICKEVENT DATA ::</label>
+    <p th:if="${clickEventList}" th:text="${clickEventList}"></p>
+
+    <label>CLICK EVENT MAPPINGS</label>
+    <p th:if="${clickeventMapping}" th:text="${clickeventMapping}"></p>
+</div>
+<div border="2px solid black">
+<table>
+    <tr>
+        <th>S.N</th>
+        <th>USERDATA</th>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td> ${urlShort}</td>
+    </tr>
+</table>
+
+
+    <table>
+        <tr>
+            <th>S.N</th>
+            <th>USER URL DATA </th>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>${userurlData}</td>
+        </tr>
+    </table>
+
+
+    <table>
+        <tr>
+            <th>S.N</th>
+            <th>USER CLICKEVENT DATA </th>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>${clickEventList}</td>
+        </tr>
+    </table>
+
+
+    <table>
+        <tr>
+            <th>S.N</th>
+            <th>CLICK EVENT MAPPINGS </th>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>th.text="${clickeventMapping}"</td>
+        </tr>
+    </table>
+
+
+</div>
+
+<script>
+
+    function renderData(){
+
+
+
+
+
+    }
+</script>
+
+
+
+
+    </body>
+    </html>
+</form>
+</body>
+</html>

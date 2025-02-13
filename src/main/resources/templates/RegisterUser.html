@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <style>
+    .container{
+    display:flex;
+    justify-content:center
+    align-items:center;
+    height:100%;
+    width:100%;
+        background-color: lightyellow;
+    }
+
+    .box{
+    height:60%;
+    width:60%;
+    margin: 50px 50px 50px 50px;
+    border:3px solid green;
+    padding:5% 5% 5% 5%;
+    font-size: 3rem;
+    background-color: lightyellow;
+    }
+
+.savebutton button{
+width:30%;
+height:2rem;
+}
+.username input{
+width:30%;
+height:2rem;
+}
+
+.password input{
+width:30%;
+height:2rem;
+}
+
+.email input{
+width:30%;
+height:2rem;
+}
+
+.roles input{
+width:30%;
+height:2rem;
+}
+
+.urlmap input{
+width:40%;
+height:2rem;
+}
+
+    @media (max-width: 600px){
+    .username input{
+     width:100%
+     height:2rem;
+    }
+    .password input{
+     width:100%
+     height:2rem;
+    }
+    .email input{
+     width:100%
+     height:2rem;
+    }
+    .urlmap input{
+     width:100%
+     height:2rem;
+    }
+    .roles input{
+     width:100%
+     height:2rem;
+    }
+
+    }
+
+  </style>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+
+<div class="container box">
+  <form action="/api/auth/public/register" method=POST th:object="${registerUser}" >
+
+    <div class="username">
+      <label>USERNAME :</label>
+      <input type="text" id="username" name="username" required="true">
+    </div>
+
+    <div class="password">
+      <label>PASSWORD :</label>
+      <input type="text" id="password" name="password" required="true">
+    </div>
+
+    <div class="email">
+      <label>EMAIL :</label>
+      <input type="text" id="email" name="email" required="true">
+    </div>
+
+    <div class="roles">
+      <label> ROLE :</label>
+      <input type="text" id="role" name="role" required="true">
+    </div>
+
+    <div class="urlmap">
+      <label> URL : </label>
+      <input type="text" id="urlmap" name="urlmap" required="true">
+    </div>
+
+    <div class="savebutton">
+      <button type="submit" onclick="registerUser()">REGISTER</button>
+    </div>
+
+    <div class="registration">
+      <p></p>
+    </div>
+
+  </form>
+</div>
+
+<script>
+
+  function registerUser(){
+  let username=document.getElementById("username").value;
+  let password=document.getElementById("password").value;
+  let email=document.getElementById("email").value;
+  let role=document.getElementById("role").value;
+  let urlmap=document.getElementById("urlmap").value;
+  let paragraph=document.querySelector(".registration p");
+
+ if(username==="" && password==="" && email==="" && role==="" && urlmap===""){
+          paragraph.textContent="ALL PARAMETERS ARE REQUIRED";
+          paragraph.style.color="red";
+  }
+  else if(username===""){
+    paragraph.textContent="USERNAME IS REQUIRED";
+      paragraph.style.color="red";
+  }else if(password===""){
+  paragraph.textContent="PASSWORD IS REQUIRED";
+        paragraph.style.color="red";
+  }else if(email===""){
+    paragraph.textContent="EMAIL IS REQUIRED";
+          paragraph.style.color="red";
+  }else if(role===""){
+      paragraph.textContent="ROLE IS REQUIRED";
+            paragraph.style.color="red";
+  }else if(urlmap===""){
+        paragraph.textContent="URL IS REQUIRED";
+        paragraph.style.color="red";
+  }else{
+          paragraph.textContent="USER REGISTERED SUCCESSFULLY";
+          paragraph.style.color="green";
+  }
+  }
+</script>
+
+
+</body>
+</html>

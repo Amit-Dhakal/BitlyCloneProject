@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/XSL/Transform">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p>EXCEPTION HANDLER CLASS</p>
+
+<div>
+    <p th:if="${resourceexception}" th:text="${resourceexception}"></p>
+    <p th:if="${internalexception}" th:text="${internalexception}"></p>
+    <p th:if="${nosuchelementexception}" th:text="${nosuchelementexception}"></p>
+    <p th:if="${badcredentialsexception}" th:text="${badcredentialsexception}"></p>
+</div>
+
+</body>
+</html>
