@@ -19,18 +19,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user=userService.getByUsernameOrPassword(username,username);
+        User user=userService.findByUsernameOrPassword(username,username);
       //  Collection<GrantedAuthority> authorityList=user.getRole().stream().map(roles->new SimpleGrantedAuthority(roles.getRname())).collect(Collectors.toList());
         Collection<SimpleGrantedAuthority> authorityList= List.of(new SimpleGrantedAuthority(user.getRole()));
         return new org.springframework.security.core.userdetails.User(user.getUsername(),user.getPassword(),authorityList);
     }
 
 
-
-
-
-
-//    @Autowired
+    //@Autowired
 //    UserService userService;
 //    @Override
 //    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -38,4 +34,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 //        List<GrantedAuthority> authorityList=user.getRole().stream().map(roles->new SimpleGrantedAuthority(roles.getRname())).collect(Collectors.toList());
 //        return new org.springframework.security.core.userdetails.User(user.getUsername(),user.getPassword(),authorityList);
 //    }
+
+
 }

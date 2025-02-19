@@ -42,7 +42,7 @@ public class JWTUtils {
 //username,roles can be extracted from this
 public String generateJWTToken(UserDetails userDetails){
      // User users=userService.findByUsernameOrEmail(username,password);
-    User users=userService.getByUsernameOrPassword(userDetails.getUsername(),userDetails.getPassword());
+    User users=userService.findByUsernameOrPassword(userDetails.getUsername(),userDetails.getPassword());
 //List<GrantedAuthority> authorityList= users.getRole().stream().map(roles->new SimpleGrantedAuthority(roles.getRname())).collect(Collectors.toList());
     Collection<SimpleGrantedAuthority> authorityList=List.of(new SimpleGrantedAuthority(users.getRole()));
 String jwtToken= Jwts

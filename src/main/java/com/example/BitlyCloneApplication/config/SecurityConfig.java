@@ -22,6 +22,7 @@ public SecurityFilterChain getAuthenticationFilter(HttpSecurity httpSecurity) th
                      .requestMatchers("/api/auth/public/login").permitAll()
                     .requestMatchers("/api/url/shorturl").permitAll()
                      .requestMatchers("/css/**","/js/**","/images/**").permitAll()
+                     .requestMatchers("/routes").permitAll()
             .anyRequest()
             .authenticated())
           .formLogin(login->login

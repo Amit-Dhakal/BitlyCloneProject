@@ -5,13 +5,17 @@ import com.example.BitlyCloneApplication.DTO.RegisterRequest;
 import com.example.BitlyCloneApplication.Exception.CustomException;
 import com.example.BitlyCloneApplication.JWTAuthentication.JWTAuthenticationResponse;
 import com.example.BitlyCloneApplication.JWTAuthentication.JWTUtils;
-import com.example.BitlyCloneApplication.config.JWTConfiguration;
 import com.example.BitlyCloneApplication.model.User;
 import com.example.BitlyCloneApplication.repository.UserRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -24,12 +28,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.context.annotation.RequestScope;
 
 @Controller
 @RequestMapping("/api/auth/public")
+@RequestScope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class AuthController {
-
+    private String requestId;
    @Value("${jwt.secret}")
     private String secretKey;
 
@@ -38,6 +43,8 @@ public class AuthController {
    private AuthenticationManager authenticationManager;
    private JWTUtils jwtUtils;
 
+   Logger log=LoggerFactory.getLogger(AuthController.class);
+
     @Autowired
     public AuthController(UserRepository userRepository,PasswordEncoder passwordEncoder,AuthenticationManager authenticationManager,JWTUtils jwtUtils){
         this.userRepository=userRepository;
@@ -45,7 +52,8 @@ public class AuthController {
         this.authenticationManager=authenticationManager;
         this.jwtUtils=jwtUtils;
     }
-
+    public AuthController(){
+    }
     @GetMapping("/login")
     public String loginUserPage() {
         return "userlogin";
@@ -57,7 +65,9 @@ public class AuthController {
     }
 
     @PostMapping("/register")
+    @Async("taskExecutor")
     public String registerUser(@ModelAttribute RegisterRequest registerUser) throws CustomException {
+        log.info("SYSTEM TIME "+System.currentTimeMillis());
         try{
             User user = new User();
             user.setUsername(registerUser.getUsername());
@@ -72,10 +82,10 @@ public class AuthController {
     }
 
     @PostMapping("/login")
+   // @PreAuthorize("hasRole('ROLE_USER')")
     public String loginUser(@ModelAttribute LoginRequest loginRequest,Model authdata) throws CustomException {
         try{
             JWTAuthenticationResponse authenticationResponse =new JWTAuthenticationResponse();
-
           //  authdata.setViewName("accessToken");
             Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),loginRequest.getPassword()));
             SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -90,7 +100,6 @@ public class AuthController {
             authenticationResponse.setToken(access_token);
           //  authenticationResponse.setRoles(claims.get(userDetails.getAuthorities()).toString());
             authdata.addAttribute("authenticationResponse",authenticationResponse);
-
         }catch (Exception ex){
             throw new CustomException(ex.getMessage(),ex.getCause());
         }

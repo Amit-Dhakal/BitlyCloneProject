@@ -1,0 +1,42 @@
+version: "1.0"
+
+services:
+ dbservices:
+  image: mysql:latest
+  restart: always
+  ports:
+   - "3307:3306"
+
+  environment:
+   MYSQL_ROOT_PASSWORD: root1  # Set a secure password here
+   MYSQL_DATABASE: bitlydb        # Optional: Create a database
+
+  #  volumes:
+#   -./data:/var/lib/mysql
+
+
+ backendservices:
+  build: .
+  depends_on:
+    - dbservices
+
+  environment:
+     - spring.datasource.url=jdbc:mysql://dbservices:/3307/bitlydb
+     - spring.datasource.username=root
+     - spring.datasource.password=root1
+     - spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+     - spring.jpa.hibernate.ddl-auto=update
+  ports:
+   - "8080:8080"
+
+#  volumes:
+#   -./data:/var/lib/mysql
+
+#  networks:
+
+
+
+
+
+
+

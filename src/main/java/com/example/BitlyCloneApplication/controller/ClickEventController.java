@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Controller
@@ -39,9 +40,9 @@ public class ClickEventController {
 
     @GetMapping("/analytics/{short_url}")
     public String getUrlAnalytics(@PathVariable("short_url") String shorturl, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSSSSS") LocalDate startDate, @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSSSSS") LocalDate endDate, Model userurlData) {
-        URLMapping urlMapping = urlMappingRepo.findByShortUrl(shorturl);
-        log.info("URL MAPPING ORIGINAL URL" + urlMapping.getOriginalUrl());
-        List<ClickEvent> clickEventList = clickRepo.findByUrlMappingAndClickDateBetween(urlMapping,startDate,endDate);
+        Optional<URLMapping> urlMapping = urlMappingRepo.findByShortUrl(shorturl);
+        log.info("URL MAPPING ORIGINAL URL" + urlMapping.get().getOriginalUrl());
+        List<ClickEvent> clickEventList = clickRepo.findByUrlMappingAndClickDateBetween(urlMapping.get(),startDate,endDate);
         log.info("LIST OF CLICK EVENT DATA" + clickEventList);
         userurlData.addAttribute("clickEventList",clickEventList);
         return "urlpage";
@@ -50,8 +51,8 @@ public class ClickEventController {
     @GetMapping("/totalclicks")
     public String getTotalClicksOnUrlByDate(Authentication authentication,@RequestParam LocalDate startDate,@RequestParam LocalDate endDate,Model model) {
         String username=authentication.getName();
-        User user=userRepository.findByUsernameOrEmail(username,username);
-        List<URLMapping> urlMappingList=urlMappingRepo.findByUser(user);
+        Optional<User> user=userRepository.findByUsernameOrEmail(username,username);
+        List<URLMapping> urlMappingList=urlMappingRepo.findByUser(user.get());
 List<ClickEvent> clickEventList=clickRepo.findByUrlMappingInAndClickDateBetween(urlMappingList,startDate,endDate.plusDays(1));
         Map<LocalDate,Long> clickeventMapping=clickEventList.stream().collect(Collectors.groupingBy(click->click.getClickDate(),Collectors.counting()));
 model.addAttribute("clickeventMapping",clickeventMapping);

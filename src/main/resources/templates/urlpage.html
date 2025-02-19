@@ -17,7 +17,9 @@
         </div>
         <button type="submit" onclick="renderData()">Submit</button>
     </form>
-
+<div class="render">
+    <p></p>
+</div>
 <div>
 
     <label>USER DATA ::</label>
@@ -32,70 +34,19 @@
     <label>CLICK EVENT MAPPINGS</label>
     <p th:if="${clickeventMapping}" th:text="${clickeventMapping}"></p>
 </div>
-<div border="2px solid black">
-<table>
-    <tr>
-        <th>S.N</th>
-        <th>USERDATA</th>
-    </tr>
-    <tr>
-        <td>1</td>
-        <td> ${urlShort}</td>
-    </tr>
-</table>
 
-
-    <table>
-        <tr>
-            <th>S.N</th>
-            <th>USER URL DATA </th>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>${userurlData}</td>
-        </tr>
-    </table>
-
-
-    <table>
-        <tr>
-            <th>S.N</th>
-            <th>USER CLICKEVENT DATA </th>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>${clickEventList}</td>
-        </tr>
-    </table>
-
-
-    <table>
-        <tr>
-            <th>S.N</th>
-            <th>CLICK EVENT MAPPINGS </th>
-        </tr>
-        <tr>
-            <td>4</td>
-            <td>th.text="${clickeventMapping}"</td>
-        </tr>
-    </table>
-
-
-</div>
-
-<script>
+<script th:inline="javascript">
 
     function renderData(){
-
-
-
-
-
-    }
+var clickEventListData=[[${clickEventList}]];
+if(clickEventListData.length()>0){
+clickEventListData.forEach(event->
+       let result= document.querySelector("render p");
+       result.textContent=event;
+);
+}
+}
 </script>
-
-
-
 
     </body>
     </html>

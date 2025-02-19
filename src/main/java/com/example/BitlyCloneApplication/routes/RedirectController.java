@@ -6,9 +6,7 @@ import com.example.BitlyCloneApplication.model.User;
 import com.example.BitlyCloneApplication.repository.ClickRepo;
 import com.example.BitlyCloneApplication.repository.UrlMappingRepo;
 import com.example.BitlyCloneApplication.repository.UserRepository;
-import com.example.BitlyCloneApplication.service.UrlMappingService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @Configuration
@@ -51,55 +50,77 @@ public class RedirectController {
 public ResponseEntity<Void> getOriginalURL(@PathVariable String shortUrl){
 //1 urlmap can have multiple click
       //  clickEvent.setClick_id();
-        URLMapping urlMapping=urlMappingRepo.findByShortUrl(shortUrl);
-        String originalUrl=urlMapping.getOriginalUrl();
+        Optional<URLMapping> urlMapping=urlMappingRepo.findByShortUrl(shortUrl);
+        String originalUrl = "";
 
-        if(urlMapping!=null){
-
+        if(urlMapping.isPresent()){
+             originalUrl=urlMapping.get().getOriginalUrl();
             ClickEvent clickEvent=new ClickEvent();
-
-           urlMapping.setClickCount(urlMapping.getClickCount()+1);
-            urlMappingRepo.save(urlMapping);
+            urlMapping.get().setClickCount(urlMapping.get().getClickCount()+1);
+            urlMappingRepo.save(urlMapping.get());
             clickEvent.setClickDate(LocalDate.now());
-            clickEvent.setUrlMapping(urlMapping);
+            clickEvent.setUrlMapping(urlMapping.get());
             clickEvent.setCount(clickEvent.getCount()+1);
             clickRepo.save(clickEvent);
-    }
+        }else{
+            urlMapping.orElseThrow();
+        }
+
+//        if(urlMapping!=null){
+//
+//            ClickEvent clickEvent=new ClickEvent();
+//
+//           urlMapping.setClickCount(urlMapping.getClickCount()+1);
+//            urlMappingRepo.save(urlMapping);
+//            clickEvent.setClickDate(LocalDate.now());
+//            clickEvent.setUrlMapping(urlMapping);
+//            clickEvent.setCount(clickEvent.getCount()+1);
+//            clickRepo.save(clickEvent);
+  //  }
         HttpHeaders httpHeaders=new HttpHeaders();
         httpHeaders.add("Location",originalUrl);
 return ResponseEntity.status(301).headers(httpHeaders).build();
 }
+
+
 
     @GetMapping("/totalclicks/{shortUrl}")
     public ResponseEntity<Void> getTotalClicksOnUrlByDate(@PathVariable String shortUrl) {
         System.out.println("INSIDE TOTAL CLICKS COUT");
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
          String username= authentication.getName();
-         User user=userRepo.findByUsernameOrEmail(username,username);
+         Optional<User> user=userRepo.findByUsernameOrEmail(username,username);
 
         ClickEvent clickEvent=new ClickEvent();
 
-        List<URLMapping> userUrl=urlMappingRepo.findByUser(user);
-        URLMapping urlMapping=urlMappingRepo.findByShortUrl(shortUrl);
-       String originalUrl= urlMapping.getOriginalUrl();
+        List<URLMapping> userUrl=urlMappingRepo.findByUser(user.get());
+        Optional<URLMapping> urlMapping=urlMappingRepo.findByShortUrl(shortUrl);
+       String originalUrl= urlMapping.get().getOriginalUrl();
        System.out.println("ORIGINAL URL IS :::"+originalUrl);
 
        if(originalUrl!=null){
            clickEvent.setClickDate(LocalDate.now());
-           clickEvent.setUrlMapping(urlMapping);
+           clickEvent.setUrlMapping(urlMapping.get());
          // clickEvent.setCount(urlMapping.getClickCount()+1);
           clickEvent.setCount(clickEvent.getCount()+1);
 
-           urlMapping.setUser(user);
-           urlMapping.setClickCount(urlMapping.getClickCount()+1);
+           urlMapping.get().setUser(user.get());
+           urlMapping.get().setClickCount(urlMapping.get().getClickCount()+1);
 
-           urlMappingRepo.save(urlMapping);
+           urlMappingRepo.save(urlMapping.get());
            clickRepo.save(clickEvent);
        }
         HttpHeaders httpHeaders=new HttpHeaders();
         httpHeaders.add("Location",originalUrl);
         return ResponseEntity.status(301).headers(httpHeaders).build();
     }
+
+    @GetMapping("/routes")
+public String getRoutes(){
+        return "WELCOME TO ROUTE";
+}
+
+
 }
 
 

@@ -1,5 +1,6 @@
 package com.example.BitlyCloneApplication;
 
+import com.example.BitlyCloneApplication.Exception.CustomException;
 import com.example.BitlyCloneApplication.config.DataBaseConfiguration;
 import com.example.BitlyCloneApplication.config.JWTConfiguration;
 import org.slf4j.Logger;
@@ -39,9 +40,10 @@ public class BitlyCloneApplication{
 		return clr;
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws CustomException {
 		PasswordEncoder pe=new BCryptPasswordEncoder();
 		System.out.println("PASSWORD ::::::: "+pe.encode("123"));
+
 		SpringApplication.run(BitlyCloneApplication.class, args);
 	}
 
