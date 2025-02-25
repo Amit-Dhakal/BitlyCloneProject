@@ -5,48 +5,48 @@
     .container{
     display:flex;
     justify-content:center
+       margin: 50px 50px 50px 50px;
+
     align-items:center;
-    height:100%;
-    width:100%;
-        background-color: lightyellow;
+    height:100vh;
+    width:100vw;
     }
 
     .box{
-    height:60%;
-    width:60%;
+    height:90%;
+    width:90%;
     margin: 50px 50px 50px 50px;
-    border:3px solid green;
+    border:3px solid white;
     padding:5% 5% 5% 5%;
     font-size: 3rem;
-    background-color: lightyellow;
     }
 
 .savebutton button{
-width:30%;
+width:40%;
 height:2rem;
 }
 .username input{
-width:30%;
+width:60%;
 height:2rem;
 }
 
 .password input{
-width:30%;
+width:60%;
 height:2rem;
 }
 
 .email input{
-width:30%;
+width:60%;
 height:2rem;
 }
 
 .roles input{
-width:30%;
+width:60%;
 height:2rem;
 }
 
 .urlmap input{
-width:40%;
+width:60%;
 height:2rem;
 }
 
@@ -77,49 +77,53 @@ height:2rem;
   </style>
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
   <meta charset="UTF-8">
-    <title>Title</title>
+  <title>Title</title>
 </head>
 
 <body>
 
-<div class="container box">
+<!--<div class="container box">-->
+
+  <div class="flex justify-center items-center h-screen bg-cyan-800">
+    <div class="w-2/5 h-4/5 m-12 p-6 border-4 border-white-100 bg-teal-400 rounded-lg shadow-lg flex justify-center items-center text-3xl text-center">
   <form action="/api/auth/public/register" method=POST th:object="${registerUser}" >
 
     <div class="username">
-      <label>USERNAME :</label>
+      <label for="username" class="block text-lg font-medium text-green-700">USERNAME:</label>
       <input type="text" id="username" name="username" required="true">
     </div>
 
     <div class="password">
-      <label>PASSWORD :</label>
+      <label for="username" class="block text-lg font-medium text-yellow-300">PASSWORD:</label>
       <input type="text" id="password" name="password" required="true">
     </div>
 
     <div class="email">
-      <label>EMAIL :</label>
+      <label for="username" class="block text-lg font-medium text-yellow-700">EMAIL:</label>
       <input type="text" id="email" name="email" required="true">
     </div>
 
     <div class="roles">
-      <label> ROLE :</label>
+      <label for="username" class="block text-lg font-medium text-green-700">ROLE:</label>
       <input type="text" id="role" name="role" required="true">
     </div>
 
     <div class="urlmap">
-      <label> URL : </label>
+      <label for="username" class="block text-lg font-medium text-red-300">URLMAP:</label>
       <input type="text" id="urlmap" name="urlmap" required="true">
     </div>
 
     <div class="savebutton">
-      <button type="submit" onclick="registerUser()">REGISTER</button>
+      <button class="bg-green-500 hover:bg-blue-700 text-white font-semibold text-sm py-2 px-4 rounded" type="submit" onclick="registerUser()">REGISTER</button>
+<!--      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Click Me</button>-->
     </div>
-
-    <div class="registration">
-      <p></p>
+    <div class="output text-center">
+      <p class="text-red-300"></p>
     </div>
-
   </form>
 </div>
+  </div>
+<!--</div>-->
 
 <script>
 
@@ -156,7 +160,8 @@ height:2rem;
   }
   }
 </script>
-
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
 
 </body>
 </html>

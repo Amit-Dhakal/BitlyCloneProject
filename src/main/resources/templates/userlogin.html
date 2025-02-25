@@ -3,11 +3,12 @@
 <head>
   <style>
     .container{
-     display:flex;
-     flex-direction:column;
-
-     width:100vh;
-     height:100vh;
+  display:flex;
+    justify-content:center
+    margin: 50px 50px 50px 50px;
+    align-items:center;
+    height:100vh;
+    width:100vw;
     }
 
     .box{
@@ -22,18 +23,21 @@
     }
 
 .username input{
-    width:50%;
-    height:20px;
+    width:60%;
+    height:2rem;
+
     }
     .password input{
-    margin-top:10px;
-    width:50%;
-    height:20px;
+    margin-top:5px;
+    width:60%;
+    height:2rem;
+
     }
 
     .login input{
-    width:30%;
-    height:20px;
+    width:60%;
+    height:2rem;
+
     }
 .output{
     width:30%;
@@ -41,10 +45,71 @@
     align-item:center;
     }
 
+.login button{
+margin-top:10px;
+width:60%;
+height:2rem;
+}
     @media (max-width:50%){
     width:100%;
     height:20px;
     }
+
+    .custom-alert{
+
+position:fixed;
+    width:20%;
+    height:20%;
+    top:50%;
+    left:50%;
+    padding:20px 10px 20px 20px;
+    transform: translate(-50%, -50%);
+     text-align:center;
+    border:3px solid blue;
+      border-radius: 5px;
+    background-color:white;
+    color:grey;
+    }
+
+<!--    .custom-alert {-->
+<!--  position: fixed;-->
+<!--  top: 50%;-->
+<!--  left: 50%;-->
+<!--  transform: translate(-50%, -50%);-->
+<!--  background-color: #4CAF50;-->
+<!--  color: white;-->
+<!--  padding: 20px;-->
+<!--  border-radius: 8px;-->
+<!--  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);-->
+<!--  text-align: center;-->
+<!--  z-index: 1000;-->
+<!--}-->
+
+.custom-alert h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.custom-alert button {
+  margin-top:15%;
+  background-color: red;
+  color: white;
+  padding: 5px 5px 5px 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width:30%;
+  height:2rem;
+}
+
+.custom-alert button:hover {
+  background-color: #E64A19;
+}
+
+
+
+
+
 
   </style>
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -54,49 +119,70 @@
 <body>
 <h1>Submit Your Information</h1>
 
-<div class="container box">
+<!--<div class="container">-->
+  <div class="flex flex-col justify-center items-center h-screen bg-cyan-800">
+  <div class="w-2/5 h-4/5 m-12 pl-20 border-4 border-white-100 bg-teal-400 rounded-lg shadow-lg flex justify-center items-center text-3xl text-center">
 
   <form action="/api/auth/public/login" method="POST" th:object="${loginRequest}">
 
     <div class="username">
-      <label>Username :</label>
+      <label for="username" class="block text-lg font-medium text-yellow-100">USERNAME:</label>
       <input type="text" id="username" name="username" required>
     </div>
 
     <div class="password">
-      <label>Password :</label>
+      <label for="password" class="block text-lg font-medium text-red-200">PASSWORD:</label>
       <input type="text" id="password" name="password" required>
     </div>
 
     <div class="login">
-      <button type="submit" id="login" name="login" onclick="loginSuccess()">Log In</button>
+      <button class="bg-green-500 hover:bg-blue-700 text-white font-semibold text-sm py-2 px-4 rounded" type="submit" id="login" name="login" onclick="loginSuccess()">Log In</button>
     </div>
   </form>
-
-  <div class="output">
-
-    <p></p>
-
-  </div>
-
-
-
+<!--    <div class="mt-20 output flex-col items-center">-->
+<!--      <p class="items-center text-center text-yellow-300 text-xl font-semibold"></p>-->
+<!--    </div>-->
 </div>
-
+  </div>
+</div>
 <script>
   function loginSuccess(){
   let username=document.getElementById("username").value;
-  let paragraph=document.querySelector(".output p");
-  if(username===""){
-  paragraph.textContent="ENTER USERNAME CORRECTLY";
-  paragraph.style.color="red";
-  }else{
+   let password=document.getElementById("password").value;
+ let paragraph=document.querySelector(".output p");
+
+  if(username==="" || password===""){
+     showCustumAlert("Enter Credential Correctly");
+   }
+else{
   paragraph.textContent="LOGIN SUCCESS";
   paragraph.style.color="green";
   }
 }
+  function showCustumAlert(message){
+
+let alertBox=document.createElement("div");
+alertBox.classList.add("custom-alert");  // Add a class for styling
+
+let alertMessage=document.createElement("h3");
+alertMessage.textContent=message;
+
+let closeButton=document.createElement("button");
+closeButton.textContent="CLOSE";
+closeButton.classList.add("custom-alert");
+closeButton.onclick=function(){
+document.body.removeChild(alertBox);
+}
+
+alertBox.appendChild(alertMessage);
+alertBox.appendChild(closeButton);
+document.body.appendChild(alertBox);
+  }
+
 </script>
 
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
 
 </body>
 </html>
