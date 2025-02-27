@@ -72,13 +72,11 @@ return ResponseEntity.status(301).headers(httpHeaders).build();
 
     @GetMapping("/totalclicks/{shortUrl}")
     public ResponseEntity<Void> getTotalClicksOnUrlByDate(@PathVariable String shortUrl) {
-        System.out.println("INSIDE TOTAL CLICKS COUT");
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
          String username= authentication.getName();
          User user=userRepo.findByUsernameOrEmail(username,username);
 
         ClickEvent clickEvent=new ClickEvent();
-
         List<URLMapping> userUrl=urlMappingRepo.findByUser(user);
         URLMapping urlMapping=urlMappingRepo.findByShortUrl(shortUrl);
        String originalUrl= urlMapping.getOriginalUrl();
@@ -89,10 +87,8 @@ return ResponseEntity.status(301).headers(httpHeaders).build();
            clickEvent.setUrlMapping(urlMapping);
          // clickEvent.setCount(urlMapping.getClickCount()+1);
           clickEvent.setCount(clickEvent.getCount()+1);
-
            urlMapping.setUser(user);
            urlMapping.setClickCount(urlMapping.getClickCount()+1);
-
            urlMappingRepo.save(urlMapping);
            clickRepo.save(clickEvent);
        }
@@ -101,6 +97,9 @@ return ResponseEntity.status(301).headers(httpHeaders).build();
         return ResponseEntity.status(301).headers(httpHeaders).build();
     }
 }
+
+
+
 
 
 

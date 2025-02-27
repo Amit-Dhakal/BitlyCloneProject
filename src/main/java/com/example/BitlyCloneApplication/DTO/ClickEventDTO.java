@@ -8,19 +8,15 @@ public class ClickEventDTO {
     private long count;
     private Date click_date;
 
-
     public long getCount() {
         return count;
     }
-
     public void setCount(long count) {
         this.count = count;
     }
-
     public Date getClick_date() {
         return click_date;
     }
-
     public void setClick_date(Date click_date) {
         this.click_date = click_date;
     }

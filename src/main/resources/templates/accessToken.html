@@ -3,15 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <h1>USER IS AUTHENTICATED</h1>
+    <link href="/css/figma-styles.css" rel="stylesheet">
+<style>
+    .header{
+    display:flex;
+    justify-content:center;
+    color:green;
+    text-size:2rem;
+    font-size:2rem;
+    margin:20px;
+    }
+
+</style>
+    <div class="header">
+        <h2 th:text="${authenticationResponse.Users}"></h2>
+        <h1>=>IS AUTHENTICATED </h1>
+
+    </div>
+
+
 </head>
 <body>
 <div>
+    <table class="w-full border-collapse border border-green-500 shadow-md rounded-lg bg-white">
+        <thead class="bg-green-600 text-white">
+        <tr>
+            <th class="px-4 py-2 border border-green-500">JWT-TOKEN</th>
+            <th class="px-4 py-2 border border-green-500">USERS</th>
+            <th class="px-4 py-2 border border-green-500">EXPIRATION-DATE</th>
+            <th class="px-4 py-2 border border-green-500">ISSUED-AT</th>
+            <th class="px-4 py-2 border border-green-500">ROLES</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td class="px-4 py-2 border border-green-500 text-center" th:text="${authenticationResponse.token}"></td>
+            <td class="px-4 py-2 border border-green-500 text-center" th:text="${authenticationResponse.Users}"></td>
+            <td class="px-4 py-2 border border-green-500 text-center" th:text="${authenticationResponse.expiration}"></td>
+            <td class="px-4 py-2 border border-green-500 text-center" th:text="${authenticationResponse.IssuedAT}"></td>
+            <td class="px-4 py-2 border border-green-500 text-center" th:text="${authenticationResponse.Roles}"></td>
+        </tr>
+        </tbody>
 
-    <p th:if="${authenticationResponse}"
-       th:text="'AUTHENTICATION RESPONSE ===>>>> ' + ${authenticationResponse}"></p>
-
+    </table>
 </div>
-
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
 </body>
 </html>
