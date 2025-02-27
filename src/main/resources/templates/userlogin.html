@@ -105,12 +105,6 @@ position:fixed;
 .custom-alert button:hover {
   background-color: #E64A19;
 }
-
-
-
-
-
-
   </style>
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <meta charset="UTF-8">
@@ -155,8 +149,11 @@ position:fixed;
      showCustumAlert("Enter Credential Correctly");
    }
 else{
-  paragraph.textContent="LOGIN SUCCESS";
-  paragraph.style.color="green";
+<!--  paragraph.textContent="LOGIN SUCCESS";-->
+<!--  paragraph.style.color="green";-->
+
+  showCustumAlert("LOGIN SUCCESS WITH--->>"+username)
+
   }
 }
   function showCustumAlert(message){

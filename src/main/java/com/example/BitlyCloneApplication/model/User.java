@@ -72,5 +72,15 @@ public class User {
     @OneToMany
     private List<URLMapping> url_id;
 
-
+    @Override
+    public String toString() {
+        return "User{" +
+                "userid=" + userid +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
+                ", url_id=" + url_id +
+                '}';
+    }
 }

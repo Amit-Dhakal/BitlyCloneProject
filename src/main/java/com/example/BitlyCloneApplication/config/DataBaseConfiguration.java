@@ -1,8 +1,6 @@
 package com.example.BitlyCloneApplication.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-
-
 @ConfigurationProperties(prefix="spring.datasource")
 public class DataBaseConfiguration {
 
@@ -33,7 +31,5 @@ public class DataBaseConfiguration {
     public void setPassword(String password) {
         this.password = password;
     }
-
-
 
 }

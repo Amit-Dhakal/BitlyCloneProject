@@ -1,7 +1,6 @@
 package com.example.BitlyCloneApplication.JWTAuthentication;
 
 import lombok.Data;
-
 import java.util.Date;
 
 @Data

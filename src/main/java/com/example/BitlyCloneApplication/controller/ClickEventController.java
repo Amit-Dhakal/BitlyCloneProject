@@ -23,7 +23,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Controller
-@RequestMapping("/api/v1/public")
+@RequestMapping("/api/clickevent/")
 public class ClickEventController {
     private UserRepository userRepository;
     private ClickRepo clickRepo;
@@ -57,7 +57,15 @@ List<ClickEvent> clickEventList=clickRepo.findByUrlMappingInAndClickDateBetween(
 model.addAttribute("clickeventMapping",clickeventMapping);
 return "urlpage";
     }
+
+    @GetMapping("/history")
+    public String getTotalClicksCountAndEventPageData(Model model){
+        List<URLMapping> listallData=urlMappingRepo.findAll();
+        model.addAttribute("listallData",listallData);
+        return "urlpage";
+    }
 }
+
 
 
 

@@ -11,4 +11,6 @@ public interface UrlMappingRepo extends JpaRepository<URLMapping,Integer> {
    // User findByUsernameOrEmail(String username,String email);
 URLMapping findByShortUrl(String shortUrl);
 List<URLMapping> findByUser(User user);
+List<URLMapping> findAll();
+
 }
