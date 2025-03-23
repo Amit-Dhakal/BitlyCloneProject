@@ -5,7 +5,6 @@ import com.example.BitlyCloneApplication.DTO.RegisterRequest;
 import com.example.BitlyCloneApplication.Exception.CustomException;
 import com.example.BitlyCloneApplication.JWTAuthentication.JWTAuthenticationResponse;
 import com.example.BitlyCloneApplication.JWTAuthentication.JWTUtils;
-import com.example.BitlyCloneApplication.config.JWTConfiguration;
 import com.example.BitlyCloneApplication.model.User;
 import com.example.BitlyCloneApplication.repository.UserRepository;
 import io.jsonwebtoken.Claims;
@@ -24,7 +23,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 
 @Controller
 @RequestMapping("/api/auth/public")

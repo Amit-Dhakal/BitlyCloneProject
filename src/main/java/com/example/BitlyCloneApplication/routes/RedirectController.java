@@ -6,9 +6,9 @@ import com.example.BitlyCloneApplication.model.User;
 import com.example.BitlyCloneApplication.repository.ClickRepo;
 import com.example.BitlyCloneApplication.repository.UrlMappingRepo;
 import com.example.BitlyCloneApplication.repository.UserRepository;
-import com.example.BitlyCloneApplication.service.UrlMappingService;
+import com.example.BitlyCloneApplication.service.JasperReportService;
+import net.sf.jasperreports.engine.JRException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +16,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -27,12 +29,14 @@ public class RedirectController {
    private UrlMappingRepo urlMappingRepo;
    private ClickRepo clickRepo;
    private UserRepository userRepo;
+    private JasperReportService jasperService;
 
     @Autowired
-  public RedirectController(UrlMappingRepo urlMappingRepo,ClickRepo clickRepo,UserRepository userRepo){
+  public RedirectController(UrlMappingRepo urlMappingRepo,ClickRepo clickRepo,UserRepository userRepo,JasperReportService jasperService){
       this.urlMappingRepo=urlMappingRepo;
       this.clickRepo=clickRepo;
       this.userRepo=userRepo;
+      this.jasperService=jasperService;
   }
 
 //    @GetMapping("/redirect/{shortUrl}")
@@ -95,6 +99,12 @@ return ResponseEntity.status(301).headers(httpHeaders).build();
         HttpHeaders httpHeaders=new HttpHeaders();
         httpHeaders.add("Location",originalUrl);
         return ResponseEntity.status(301).headers(httpHeaders).build();
+    }
+
+
+    @GetMapping("/jasper/report")
+    public String generateReport(@RequestParam String reportFormat,@RequestParam String reportName) throws JRException, IOException {
+        return jasperService.exportReport(reportFormat,reportName);
     }
 }
 

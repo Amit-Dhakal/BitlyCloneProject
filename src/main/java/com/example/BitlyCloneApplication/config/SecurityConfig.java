@@ -20,6 +20,7 @@ public SecurityFilterChain getAuthenticationFilter(HttpSecurity httpSecurity) th
              auth
                   .requestMatchers("/api/auth/public/register").permitAll()
                      .requestMatchers("/api/auth/public/login").permitAll()
+                     .requestMatchers("/api/url/jasper/report").permitAll()
                     .requestMatchers("/api/url/shorturl").permitAll()
                      .requestMatchers("/css/**","/js/**","/images/**").permitAll()
             .anyRequest()

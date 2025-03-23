@@ -11,4 +11,7 @@ public interface ClickRepo extends JpaRepository<ClickEvent,Integer> {
    // @Query(value = "SELECT * FROM ClickEvent ce WHERE urlMapping = ?1 AND click_date BETWEEN ?2 AND ?3", nativeQuery = true)
     List<ClickEvent> findByUrlMappingAndClickDateBetween(URLMapping urlMapping,LocalDate start,LocalDate end);
     List<ClickEvent> findByUrlMappingInAndClickDateBetween(List<URLMapping> urlMapping,LocalDate start,LocalDate end);
+
+    List<ClickEvent> findAll();
+
 }
