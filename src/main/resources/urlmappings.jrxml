@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.21.3.final using JasperReports Library version 6.21.3-4a3078d20785ebe464f18037d738d12fc98c13cf  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="urlmappings" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c72f96d9-38c2-435f-af49-97a4a2b29c57">
+    <!-- Define the styles -->
+    <style name="Row" isBold="false" fontSize="12" />
+    <style name="Detail" isBold="false" fontSize="12" />
+
+<!--    <style name="Title" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false"/>-->
+<!--    <style name="SubTitle" forecolor="#666666" fontName="Times New Roman" fontSize="18" isBold="false"/>-->
+<!--    <style name="Column header" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true"/>-->
+<!--    <style name="Detail" mode="Transparent" fontName="Times New Roman"/>-->
+<!--    <style name="Row" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">-->
+<!--        <conditionalStyle>-->
+<!--            <conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>-->
+<!--            <style mode="Opaque" backcolor="#F0EFEF"/>-->
+<!--        </conditionalStyle>-->
+<!--    </style>-->
+    <subDataset name="PieChartDataset" uuid="39581794-7f4c-48d6-8f6a-b421776f515c"/>
+    <field name="url_id" class="java.lang.Integer"/>
+    <field name="clickCount" class="java.lang.Long"/>
+    <field name="originalUrl" class="java.lang.String"/>
+    <field name="shortUrl" class="java.lang.String"/>
+    <field name="createdDate" class="java.time.LocalDateTime"/>
+    <field name="user" class="java.lang.Object"/>
+
+
+    <!-- Only detail section -->
+    <detail>
+        <band height="18" splitType="Stretch">
+            <frame>
+                <!-- Apply style 'Row' to the frame -->
+                <reportElement style="Row" mode="Opaque" x="0" y="0" width="555" height="18" uuid="b50221b5-8254-440b-8c6f-1f0b138c9259"/>
+
+                <!-- Display click_id -->
+                <textField>
+                    <reportElement style="Detail" positionType="Float" x="0" y="0" width="92" height="18" uuid="52507be1-9022-461c-8b14-37939ecd2e11"/>
+                    <textElement>
+                        <font size="14"/>
+                    </textElement>
+                    <textFieldExpression><![CDATA[$F{url_id}]]></textFieldExpression>
+                </textField>
+
+                <!-- Display count -->
+                <textField>
+                    <reportElement style="Detail" positionType="Float" x="92" y="0" width="92" height="18" uuid="4bd34a1f-f8cd-461d-971e-fbe37f6b768b"/>
+                    <textElement>
+                        <font size="14"/>
+                    </textElement>
+                    <textFieldExpression><![CDATA[$F{clickCount}]]></textFieldExpression>
+                </textField>
+
+                <!-- Display clickDate -->
+                <textField>
+                    <reportElement style="Detail" positionType="Float" x="184" y="0" width="92" height="18" uuid="7f9060a8-b72c-44d7-9be2-37f49989133e"/>
+                    <textElement>
+                        <font size="14"/>
+                    </textElement>
+                    <textFieldExpression><![CDATA[$F{originalUrl}]]></textFieldExpression>
+                </textField>
+
+                <!-- Display urlMapping -->
+                <textField>
+                    <reportElement style="Detail" positionType="Float" x="276" y="0" width="92" height="18" uuid="78095c9f-c47a-4b91-b611-046b7bab8c95"/>
+                    <textElement>
+                        <font size="14"/>
+                    </textElement>
+                    <textFieldExpression><![CDATA[$F{shortUrl}]]></textFieldExpression>
+                </textField>
+                <!-- Display urlMapping -->
+                <textField>
+                    <reportElement style="Detail" positionType="Float" x="276" y="0" width="92" height="18" uuid="78095c9f-c47a-4b91-b611-046b7bab8c95"/>
+                    <textElement>
+                        <font size="14"/>
+                    </textElement>
+                    <textFieldExpression><![CDATA[$F{createdDate}]]></textFieldExpression>
+                </textField>
+                <!-- Display urlMapping -->
+                <textField>
+                    <reportElement style="Detail" positionType="Float" x="276" y="0" width="92" height="18" uuid="78095c9f-c47a-4b91-b611-046b7bab8c95"/>
+                    <textElement>
+                        <font size="14"/>
+                    </textElement>
+                    <textFieldExpression><![CDATA[$F{user}]]></textFieldExpression>
+                </textField>
+            </frame>
+        </band>
+    </detail>
+
+
+
+
+</jasperReport>

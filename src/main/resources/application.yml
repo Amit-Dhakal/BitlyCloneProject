@@ -1,36 +1,44 @@
 server:
-  port: 8080
+ port: 8080
+
+ tomcat:
+  threads:
+   max: 200
+   min-spare: 10
 
 spring:
-  application:
-    name: BitlyCloneApplication
+ application:
+  name: BitlyCloneApplication
 
-  datasource:
-    url: jdbc:mysql://localhost:3306/bitlydb
-    username: root
-    password: root1
-    driver-class-name: com.mysql.cj.jdbc.Driver
+ datasource:
+  url: jdbc:mysql://host.docker.internal:3306/bitlydb
+  username: root
+  password: root1
+  driver-class-name: com.mysql.cj.jdbc.Driver
 
-  jpa:
-    hibernate:
-      ddl-auto: update
+ jpa:
+  hibernate:
+   ddl-auto: update
 
-  thymeleaf:
-    enabled: true
-    prefix: classpath:/templates/
-    suffix: .html
+ thymeleaf:
+  enabled: true
+  prefix: classpath:/templates/
+  suffix: .html
 
-  mvc:
-    throw-exception-if-no-handler-found: true
+ mvc:
+  throw-exception-if-no-handler-found: true
 
-  web:
-    resources:
-      add-mappings: false
+ web:
+  resources:
+   add-mappings: false
 
-  profiles:
-    active:
-      - "uat"
+# profiles:
+#  active:
+#   - "uat"
 
 jwt:
-  expiration: 86400
-  secret: "603fa638378c3c99a15c7d9a29726a67d6df114a30d9e48d20b158e8e284c2be533e7589b0d00a78af0dc8ccfb00765b711534d96edfc91d8fc2511875538e99e656167422c692d00f7131870169525d5e164415bc2f59f6125a564d43d0ff5f353197b9f10fd9932bed08692594bf240843bd3b851bfc3f0b56d43a7db936b47e92cca4cb080961e936ec74681be0eb25259c7c0af9ac25a9256b81d3729e9de5bfcfc57160e320c"
+ expiration: 86400
+ secret: "603fa638378c3c99a15c7d9a29726a67d6df114a30d9e48d20b158e8e284c2be533e7589b0d00a78af0dc8ccfb00765b711534d96edfc91d8fc2511875538e99e656167422c692d00f7131870169525d5e164415bc2f59f6125a564d43d0ff5f353197b9f10fd9932bed08692594bf240843bd3b851bfc3f0b56d43a7db936b47e92cca4cb080961e936ec74681be0eb25259c7c0af9ac25a9256b81d3729e9de5bfcfc57160e320c"
+
+
+
