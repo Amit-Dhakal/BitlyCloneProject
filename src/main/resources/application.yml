@@ -8,10 +8,14 @@ spring:
     name: BitlyCloneApplication
 
   datasource:
-    url: jdbc:mysql://localhost:3306/bitlydb
+    url: jdbc:mysql://host.docker.internal:3306/bitlydb
     username: root
     password: root1
     driver-class-name: com.mysql.cj.jdbc.Driver
+
+    hikari:
+      connection-timeout: 600000
+      initialization-fail-timeout: -1
 
   jpa:
     hibernate:
